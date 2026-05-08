@@ -1,4 +1,4 @@
-const API = 'http://localhost:4000/eventos';
+const API = 'https://aula-7-backend-vercel-24lr.vercel.app/eventos';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('eventos');
