@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arraiá da Cidade</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <h1>Arraiá da Cidade</h1>
+    <ul id="navMenu">
+      <li onclick="scrollInicio()">Início</li>
+      <li onclick="scrollProgramacao()">Programação</li>
+      <li onclick="scrollComidas()">Comidas</li>
+      <li onclick="scrollIngressos()">Ingressos</li>
+      <li onclick="scrollGaleria()">Galeria</li>
+    </ul>
+    <div class="nav-buttons">
+      <button onclick="abrirLogin()">Entrar</button>
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
+    </div>
+  </nav>
+
+  <!-- MODAL LOGIN -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="close-btn" onclick="fecharLogin()">×</button>
+      <div class="login-container">
+        <h2>Bem-vindo! 🎉</h2>
+        <p>Faça login para participar da festa</p>
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="email" placeholder="seu@email.com">
+        </div>
+        <div class="form-group">
+          <label>Senha:</label>
+          <input type="password" placeholder="••••••••">
+        </div>
+        <button class="btn-login">Entrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <h2>Vem pro</h2>
+      <h1>ARRAIÁ!</h1>
+      <p>Muita comida boa, música e alegria 🎊</p>
+      <button onclick="scrollProgramacao()">Ver Programação</button>
+    </div>
+  </header>
+
+  <!-- PROGRAMAÇÃO -->
+  <section id="programacao" class="programacao">
+    <h2>🔥 Programação Oficial 🔥</h2>
+    <!-- 👇 CONTAINER CRÍTICO ADICIONADO -->
+    <div id="eventos" class="eventos"></div>
+  </section>
+
+  <!-- COMIDAS -->
+  <section id="comidas" class="comidas">
+    <h2>🌽 Comidas Típicas 🌽</h2>
+    <div class="comidas-grid">
+      <div class="comida-card">
+        <img src="https://www.receitasnestle.com.br/sites/default/files/srh_recipes/35e070a4433d56546d2296bc362ac03b.jpeg" alt="Pamonha">
+        <h3>Pamonha</h3>
+      </div>
+      <div class="comida-card">
+        <img src="https://p2.trrsf.com/image/fget/cf/1200/900/middle/images.terra.com/2023/06/19/como-fazer-milho-cozido-u85necz3xhdf.jpg" alt="Milho Cozido">
+        <h3>Milho Cozido</h3>
+      </div>
+      <div class="comida-card">
+        <img src="https://www.lecreuset.com.br/dw/image/v2/BDRT_PRD/on/demandware.static/-/Sites-le-creuset-br-master/default/dw46131ac0/images/canjica_com_doce_de_leite_receita_le_creuset.png?sw=650&sh=650&sm=fit" alt="Canjica">
+        <h3>Canjica</h3>
+      </div>
+      <div class="comida-card">
+        <img src="https://cdn.awsli.com.br/2500x2500/761/761999/produto/100990180e8bcfa2aea.jpg" alt="Pastel">
+        <h3>Pastel</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- INGRESSOS -->
+  <section id="ingressos" class="ingressos">
+    <h2>🎫 Compre Seus Ingressos 🎫</h2>
+    <div class="ingressos-grid">
+      <div class="ingresso-card">
+        <h3>Inteira</h3>
+        <p class="descricao">Acesso a todas as atrações e barracas</p>
+        <p class="preco">R$ 50,00</p>
+        <div class="quantidade-selector">
+          <button onclick="mudarQuantidade('inteira', -1)">-</button>
+          <input type="number" id="qtd-inteira" value="0" readonly>
+          <button onclick="mudarQuantidade('inteira', 1)">+</button>
+        </div>
+      </div>
+      <div class="ingresso-card">
+        <h3>Meia</h3>
+        <p class="descricao">Estudantes, idosos e professores</p>
+        <p class="preco">R$ 25,00</p>
+        <div class="quantidade-selector">
+          <button onclick="mudarQuantidade('meia', -1)">-</button>
+          <input type="number" id="qtd-meia" value="0" readonly>
+          <button onclick="mudarQuantidade('meia', 1)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="carrinho-section">
+      <div class="carrinho-info">
+        <h3>Meu Carrinho</h3>
+        <p>Total de ingressos: <span id="total-qtde">0</span></p>
+        <p>Valor total: R$ <span id="total-valor">0,00</span></p>
+        <button class="btn-comprar" onclick="abrirCheckout()">Finalizar Compra</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL CHECKOUT -->
+  <div id="checkoutModal" class="modal-overlay">
+    <div class="modal-content checkout-modal">
+      <button class="close-btn" onclick="fecharCheckout()">×</button>
+      <div class="checkout-container">
+        <h2>Finalizar Compra 🎉</h2>
+        <div class="carrinho-resumo">
+          <h3>Resumo do Pedido</h3>
+          <p>Total: R$ <span id="checkout-total">0,00</span></p>
+        </div>
+        <div class="form-group"><label>Nome Completo:</label><input type="text"></div>
+        <div class="form-group"><label>Email:</label><input type="email"></div>
+        <div class="form-group"><label>Telefone:</label><input type="tel"></div>
+        <div class="form-group"><label>CPF:</label><input type="text"></div>
+        <button class="btn-finalizar">Confirmar Pagamento</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALERIA -->
+  <section id="galeria" class="galeria">
+    <h2>📸 Galeria do Arraiá 📸</h2>
+    <div class="galeria-grid">
+      <img src="https://blog.solo.ind.br/wp-content/uploads/2017/06/Conheca-as-Melhores-Cidades-Para-Aproveitar-Festas-Juninas-no-Brasil.jpg" class="imagem-clicavel" onclick="abrirGaleria(this.src)">
+      <img src="https://s.calendarr.com/upload/articles/pe/sc/pescaria-junina_c.jpg?width=640" class="imagem-clicavel" onclick="abrirGaleria(this.src)">
+      <img src="https://www.canaadoscarajas.pa.gov.br/novo/wp-content/uploads/2024/06/WhatsApp-Image-2024-06-17-at-22.21.51-534x462.jpeg" class="imagem-clicavel" onclick="abrirGaleria(this.src)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsodM0ql8iFn68NSTN1w0SEwCetYtQfah9RQ&s" class="imagem-clicavel" onclick="abrirGaleria(this.src)">
+    </div>
+  </section>
+
+  <!-- MODAL GALERIA -->
+  <div id="galeraModal" class="modal-galeria">
+    <span class="close-galera" onclick="fecharGaleria()">×</span>
+    <img id="imagemExpandida" class="modal-galeria-content" src="">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
