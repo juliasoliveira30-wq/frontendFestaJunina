@@ -1,4 +1,4 @@
-const API = 'https://aula-7-backend-vercel-24lr.vercel.app/eventos';
+const API = 'https://backend-festa-junina-two.vercel.app/eventos';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('eventos');
